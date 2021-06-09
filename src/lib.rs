@@ -31,7 +31,10 @@ impl<T: Default + Copy, const S: usize> RotatingBuffer<T, S> {
 
     pub fn set_len(&mut self, length: usize) {
         if length > S {
-            panic!("Input length larger than buffer capacity: {} > {}", length, S);
+            panic!(
+                "Input length larger than buffer capacity: {} > {}",
+                length, S
+            );
         }
 
         self.inner_length = self.rotated_length + length;
@@ -50,6 +53,12 @@ impl<T: Default + Copy, const S: usize> RotatingBuffer<T, S> {
     }
 }
 
+impl<T: Default + Copy, const S: usize> Default for RotatingBuffer<T, S> {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -63,7 +72,8 @@ mod tests {
         assert_eq!(32, buf.as_mut_slice().len());
         // Let's write! More or less compatible with the way UnixStream::try_read works
         buf.as_mut_slice().copy_from_slice(&[
-            0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0,
         ]);
         // Amount of bytes read as returned by UnixStream::try_read
         buf.set_len(22);
@@ -76,7 +86,7 @@ mod tests {
         // Write a full message to the buffer! 27 new spicey bytes
         buf.as_mut_slice().copy_from_slice(&[
             22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43,
-            44, 45, 46, 47, 48
+            44, 45, 46, 47, 48,
         ]);
         buf.set_len(24);
         println!(
