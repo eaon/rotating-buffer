@@ -1,9 +1,11 @@
 [package]
 name = "rotating_buffer"
-version = "0.1.0"
+version = "0.2.0"
 authors = ["eaon <eaon@posteo.net>"]
 edition = "2018"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
-[dependencies]
+keywords = ["stack", "no_std"]
+categories = ["data-structures"]
+readme = "README.md"
+repository = "https://ghom.niij.org/eaon/rotating_buffer"
+license = "GPL-3.0"
+description = "Small helper data structure that allows retaining unused data"
