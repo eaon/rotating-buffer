@@ -1,5 +1,5 @@
 [package]
-name = "rotating_buffer"
+name = "rotating-buffer"
 version = "0.2.0"
 authors = ["eaon <eaon@posteo.net>"]
 edition = "2018"
